@@ -41,14 +41,18 @@ async def test_async():
     for response in async_responses:
         print(response)
 
-def test_sync():
+def lambda_handler():
     student_resource = StudentResource()
     sync_responses = student_resource.get_data_sync()
     print("\nSynchronous responses:")
     for key, value in sync_responses.items():
         print(f"{key}: {value}")
 
+
+
+"""
 if __name__ == "__main__":
     print("Starting tests...")
     asyncio.run(test_async())
-    test_sync()
+    lambda_handler()    
+"""
