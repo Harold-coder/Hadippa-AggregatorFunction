@@ -25,6 +25,7 @@ def get_data_sync(resources):
     return full_result
 
 def lambda_handler(event, context):
+    # Whatsup
     # Define the resources
     resources = [
         {
