@@ -25,10 +25,10 @@ def get_data_sync(url, method, data=None):
         response = requests.post(url, json=data, headers=headers)
     return response.json()
 
-def construct_url(base_url, resource_name):
+def construct_url(base_url, resource_name, query_params=None):
     url = f'{base_url}{resource_name}'
-    # if query_params:
-    #     url += '?' + urllib.parse.urlencode(query_params)
+    if query_params:
+        url += '?' + urllib.parse.urlencode(query_params)
     return url
 
 def lambda_handler(event, context):
@@ -41,7 +41,7 @@ def lambda_handler(event, context):
     custom_id = event.get('custom_id', '')
     method = event.get('httpMethod', 'get').lower()
     data = event.get('data', {})
-    query_params = event.get('query_params', {})
+    query_params = event.get('queryStringParameters', {})  # Extract query params from the event
 
     path = event.get('path')
 
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
         }
 
     # The construct_url function can be modified to accept the whole path
-    url = construct_url(base_url, path)
+    url = construct_url(base_url, path, query_params)
 
 
     # Call the appropriate function based on the requested method ('get' or 'post')
