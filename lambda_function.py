@@ -21,10 +21,8 @@ def get_data_sync(url, method, data=None):
     headers = {'Content-Type': 'application/json'}
     if method == 'get':
         response = requests.get(url, headers=headers)
-        response.headers.add('Access-Control-Allow-Origin', '*')
     else:  # 'post'
         response = requests.post(url, json=data, headers=headers)
-        response.headers.add('Access-Control-Allow-Origin', '*')
     return response.json()
 
 def construct_url(base_url, resource_name, query_params=None):
@@ -59,7 +57,12 @@ def lambda_handler(event, context):
     else:
         return {
             "statusCode": 400,
-            "headers": { "Content-Type": "application/json" },
+            "headers": { 
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type,Authorization",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS"
+                  },
             "body": json.dumps({"error": "Resource not found"})
         }
 
@@ -77,7 +80,12 @@ def lambda_handler(event, context):
     response = {
             "isBase64Encoded": False,
             "statusCode": 200,
-            "headers": { "Content-Type": "application/json" },
+            "headers": { 
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type,Authorization",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS"
+                  },
             "body": json.dumps(ans)  # your_response_data should be a dictionary
         }
     return response
