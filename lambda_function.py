@@ -65,20 +65,17 @@ def lambda_handler(event, context):
 
 
     # Call the appropriate function based on the requested method ('get' or 'post')
-    # if event.get('async', False):
-    #     ans =  asyncio.run(get_data_async(url, method, data))
-    # else:
-    #     ans = get_data_sync(url, method, data)
+    if event.get('async', False):
+        ans =  asyncio.run(get_data_async(url, method, data))
+    else:
+        ans = get_data_sync(url, method, data)
 
-    response_data = {
-        "event": event
-    }
 
     response = {
             "isBase64Encoded": False,
             "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
-            "body": json.dumps(response_data)  # your_response_data should be a dictionary
+            "body": json.dumps(ans)  # your_response_data should be a dictionary
         }
     return response
     
