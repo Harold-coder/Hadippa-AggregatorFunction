@@ -39,7 +39,7 @@ def lambda_handler(event, context):
 
     # Extract information from the event
     method = event.get('httpMethod', 'get').lower()
-    data = event.get('data', {})
+    data = event.get('body', {})
     query_params = event.get('queryStringParameters', {})  # Extract query params from the event
 
     path = event.get('path')
@@ -73,7 +73,7 @@ def lambda_handler(event, context):
             "isBase64Encoded": False,
             "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
-            "body": json.dumps(event)  # your_response_data should be a dictionary
+            "body": json.dumps(ans)  # your_response_data should be a dictionary
         }
     return response
     
