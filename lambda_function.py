@@ -2,6 +2,7 @@ import requests
 import asyncio
 import aiohttp
 import urllib.parse
+import json
 
 async def fetch(session, url, method, data=None):
     headers = {'Content-Type': 'application/json'}
@@ -64,8 +65,16 @@ def lambda_handler(event, context):
 
     # Call the appropriate function based on the requested method ('get' or 'post')
     if event.get('async', False):
-        return asyncio.run(get_data_async(url, method, data))
+        ans =  asyncio.run(get_data_async(url, method, data))
     else:
-        return get_data_sync(url, method, data)
+        ans = get_data_sync(url, method, data)
+
+    response = {
+            "isBase64Encoded": False,
+            "statusCode": 200,
+            "headers": { "Content-Type": "application/json" },
+            "body": json.dumps(ans)  # your_response_data should be a dictionary
+        }
+    return response
     
     
