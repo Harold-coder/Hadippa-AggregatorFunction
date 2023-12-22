@@ -40,9 +40,9 @@ def lambda_handler(event, context):
     feedback_base_url = 'http://feedback-service-url/'
 
     # Extract information from the event
-    resource_name = event.get('resource')
+    resource_name = event.get('resource').strip('/')
     custom_id = event.get('custom_id', '')
-    method = event.get('method', 'get').lower()
+    method = event.get('httpMethod', 'get').lower()
     data = event.get('data', {})
     query_params = event.get('query_params', {})
 
