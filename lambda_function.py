@@ -45,12 +45,16 @@ def lambda_handler(event, context):
 
     path = event.get('path')
 
+    inventory_resources = ['graphql', 'available_meals', 'view_inventory', 'inventory_item', 'meals_by_dining_hall', 'update_inventory']
+    order_resources = ['get_orders', 'place_order', 'delete_order', 'update_order']
+    feedback_resources = ['student_reviews', 'add_review', 'edit_review', 'delete_review']
+
     # Determine the base URL based on the path
-    if path.startswith('/graphql') or path.startswith('/available_meals') or path.startswith('/inventory_item'):
+    if path.startswith('/graphql') or path.startswith('/available_meals') or path.startswith('/inventory_item') or path.startswith('/view_inventory') or path.startswith('/meals_by_dining_hall') or path.startswith('/update_inventory'):
         base_url = inventory_base_url
-    elif path.startswith('/get_orders') or path.startswith('/place_order'):
+    elif path.startswith('/get_orders') or path.startswith('/place_order') or path.startswith('/delete_order') or path.startswith('/update_order'):
         base_url = order_base_url
-    elif path.startswith('/student_reviews') or path.startswith('/add_review'):
+    elif path.startswith('/student_reviews') or path.startswith('/add_review') or path.startswith('/edit_review') or path.startswith('/delete_review'):
         base_url = feedback_base_url
     else:
         return {
