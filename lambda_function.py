@@ -76,6 +76,8 @@ def lambda_handler(event, context):
     else:
         ans = get_data_sync(url, method, data)
 
+        #demooo
+
 
     response = {
             "isBase64Encoded": False,
