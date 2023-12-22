@@ -36,8 +36,8 @@ def construct_url(base_url, resource_name, custom_id, query_params):
 def lambda_handler(event, context):
     # Define base URLs for each microservice
     inventory_base_url = 'http://ec2-18-222-146-24.us-east-2.compute.amazonaws.com:8012/'
-    order_base_url = 'https://lion-leftovers-om.ue.r.appspot.com/'
-    feedback_base_url = 'http://feedback-service-url/'
+    order_base_url = 'https://hadippa-om.ue.r.appspot.com/'
+    feedback_base_url = 'http://ec2-18-188-42-56.us-east-2.compute.amazonaws.com:8012/'
 
     # Extract information from the event
     resource_name = event.get('resource').strip('/')
@@ -62,7 +62,7 @@ def lambda_handler(event, context):
             "isBase64Encoded": False,
             "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
-            "body": json.dumps("error")  # your_response_data should be a dictionary
+            "body": json.dumps("resource not found")  # your_response_data should be a dictionary
         }
 
     # Construct the URL with path and query parameters
