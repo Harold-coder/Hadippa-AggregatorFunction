@@ -39,7 +39,7 @@ def lambda_handler(event, context):
 
     # Extract information from the event
     method = event.get('httpMethod', 'get').lower()
-    if 'body' in event:
+    if 'body' in event and event['body'] is not None:
         data = json.loads(event['body'])
     else:
         data = {}
