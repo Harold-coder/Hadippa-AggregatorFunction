@@ -21,8 +21,10 @@ def get_data_sync(url, method, data=None):
     headers = {'Content-Type': 'application/json'}
     if method == 'get':
         response = requests.get(url, headers=headers)
+        response.headers.add('Access-Control-Allow-Origin', '*')
     else:  # 'post'
         response = requests.post(url, json=data, headers=headers)
+        response.headers.add('Access-Control-Allow-Origin', '*')
     return response.json()
 
 def construct_url(base_url, resource_name, query_params=None):
