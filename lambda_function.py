@@ -38,16 +38,11 @@ def lambda_handler(event, context):
     feedback_base_url = 'http://ec2-18-188-42-56.us-east-2.compute.amazonaws.com:8012/'
 
     # Extract information from the event
-    custom_id = event.get('custom_id', '')
     method = event.get('httpMethod', 'get').lower()
     data = event.get('data', {})
     query_params = event.get('queryStringParameters', {})  # Extract query params from the event
 
     path = event.get('path')
-
-    inventory_resources = ['graphql', 'available_meals', 'view_inventory', 'inventory_item', 'meals_by_dining_hall', 'update_inventory']
-    order_resources = ['get_orders', 'place_order', 'delete_order', 'update_order']
-    feedback_resources = ['student_reviews', 'add_review', 'edit_review', 'delete_review']
 
     # Determine the base URL based on the path
     if path.startswith('/graphql') or path.startswith('/available_meals') or path.startswith('/inventory_item') or path.startswith('/view_inventory') or path.startswith('/meals_by_dining_hall') or path.startswith('/update_inventory'):
@@ -78,7 +73,7 @@ def lambda_handler(event, context):
             "isBase64Encoded": False,
             "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
-            "body": json.dumps(ans)  # your_response_data should be a dictionary
+            "body": json.dumps(event)  # your_response_data should be a dictionary
         }
     return response
     
