@@ -25,12 +25,10 @@ def get_data_sync(url, method, data=None):
         response = requests.post(url, json=data, headers=headers)
     return response.json()
 
-def construct_url(base_url, resource_name, custom_id, query_params):
+def construct_url(base_url, resource_name):
     url = f'{base_url}{resource_name}'
-    if custom_id:
-        url += f'/{custom_id}'
-    if query_params:
-        url += '?' + urllib.parse.urlencode(query_params)
+    # if query_params:
+    #     url += '?' + urllib.parse.urlencode(query_params)
     return url
 
 def lambda_handler(event, context):
