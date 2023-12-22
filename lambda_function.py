@@ -58,7 +58,12 @@ def lambda_handler(event, context):
     elif resource_name in feedback_resources:
         base_url = feedback_base_url
     else:
-        return {"error": event}
+        return {
+            "isBase64Encoded": False,
+            "statusCode": 200,
+            "headers": { "Content-Type": "application/json" },
+            "body": json.dumps("error")  # your_response_data should be a dictionary
+        }
 
     # Construct the URL with path and query parameters
     url = construct_url(base_url, resource_name, custom_id, query_params)
