@@ -58,7 +58,7 @@ def lambda_handler(event, context):
     elif resource_name in feedback_resources:
         base_url = feedback_base_url
     else:
-        return {"error": "Invalid resource name"}
+        return {"error": event}
 
     # Construct the URL with path and query parameters
     url = construct_url(base_url, resource_name, custom_id, query_params)
