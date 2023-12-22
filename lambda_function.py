@@ -39,7 +39,10 @@ def lambda_handler(event, context):
 
     # Extract information from the event
     method = event.get('httpMethod', 'get').lower()
-    data = event.get('body', {})
+    if 'body' in event:
+        data = json.loads(event['body'])
+    else:
+        data = {}
     query_params = event.get('queryStringParameters', {})  # Extract query params from the event
 
     path = event.get('path')
